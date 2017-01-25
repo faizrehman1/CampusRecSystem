@@ -14,20 +14,12 @@ import com.example.faizrehman.campus_recruitment_system.R;
  */
 
 public class Profile_fragment extends android.support.v4.app.Fragment {
-    FloatingActionButton floatingActionButton;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.profile_view,null);
         super.onCreateView(inflater, container, savedInstanceState);
-
-        floatingActionButton = (FloatingActionButton)view.findViewById(R.id.add_app);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         return view;
     }
