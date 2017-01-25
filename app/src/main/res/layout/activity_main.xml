@@ -8,7 +8,7 @@
     android:background="@drawable/background"
     android:orientation="vertical"
 
-    tools:context="com.example.faizrehman.campus_recruitment_system.MainActivity">
+    tools:context="com.example.faizrehman.campus_recruitment_system.ui.MainActivity">
 
     <FrameLayout
         android:layout_width="match_parent"

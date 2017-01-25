@@ -1,4 +1,4 @@
-package com.example.faizrehman.campus_recruitment_system;
+package com.example.faizrehman.campus_recruitment_system.ui;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.faizrehman.campus_recruitment_system.AppLogs;
+import com.example.faizrehman.campus_recruitment_system.R;
+import com.example.faizrehman.campus_recruitment_system.Model.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;

@@ -1,4 +1,4 @@
-package com.example.faizrehman.campus_recruitment_system;
+package com.example.faizrehman.campus_recruitment_system.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,19 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.faizrehman.campus_recruitment_system.R;
+
 /**
- * Created by faizrehman on 1/25/17.
+ * Created by faiz on 1/25/2017.
  */
 
-public class Status_fragment extends android.support.v4.app.Fragment {
-
+public class Profile_fragment extends android.support.v4.app.Fragment {
     FloatingActionButton floatingActionButton;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.status_view,null);
+        View view = inflater.inflate(R.layout.profile_view,null);
         super.onCreateView(inflater, container, savedInstanceState);
+
         floatingActionButton = (FloatingActionButton)view.findViewById(R.id.add_app);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,6 +28,7 @@ public class Status_fragment extends android.support.v4.app.Fragment {
 
             }
         });
+
         return view;
     }
 }

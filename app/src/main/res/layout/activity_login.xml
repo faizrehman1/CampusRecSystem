@@ -15,7 +15,7 @@
 
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.example.faizrehman.campus_recruitment_system.LoginActivity">
+    tools:context="com.example.faizrehman.campus_recruitment_system.ui.LoginActivity">
 
 
     <ImageView

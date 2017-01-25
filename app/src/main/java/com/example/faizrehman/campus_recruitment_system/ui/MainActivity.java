@@ -1,4 +1,4 @@
-package com.example.faizrehman.campus_recruitment_system;
+package com.example.faizrehman.campus_recruitment_system.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.faizrehman.campus_recruitment_system.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

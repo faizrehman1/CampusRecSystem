@@ -1,4 +1,4 @@
-package com.example.faizrehman.campus_recruitment_system;
+package com.example.faizrehman.campus_recruitment_system.ui;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.faizrehman.campus_recruitment_system.AppLogs;
+import com.example.faizrehman.campus_recruitment_system.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -71,7 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     AppLogs.logd("signInWithEmail:onComplete:" + task.isSuccessful());
                                     checkUser(task.getResult().getUser().getUid());
-                                    Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();
 
                                 } else if (!task.isSuccessful()) {
@@ -117,13 +118,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void checkUser(final String uid){
-        if(checkuser.matches("Company")) {
+        if(checkuser.matches("company")) {
             firebase.child("Company").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot != null) {
                         if (dataSnapshot.hasChild(uid)) {
-
+                            Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, Company_Activity.class);
+                            startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(LoginActivity.this, "Something wrong", Toast.LENGTH_SHORT).show();
                         }
@@ -141,6 +145,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot != null) {
                         if (dataSnapshot.hasChild(uid)) {
+                            Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, Student_Activity.class);
                             startActivity(intent);
                             finish();

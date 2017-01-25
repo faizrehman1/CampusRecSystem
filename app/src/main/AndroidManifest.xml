@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,9 +20,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.LoginActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".Student_Activity"></activity>
+        <activity android:name=".ui.Student_Activity" />
+        <activity android:name=".ui.Company_Activity"></activity>
     </application>
 
 </manifest>
