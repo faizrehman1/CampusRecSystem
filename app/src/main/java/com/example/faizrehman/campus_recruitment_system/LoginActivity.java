@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot != null) {
                         if (dataSnapshot.hasChild(uid)) {
-                            
+
                         } else {
                             Toast.makeText(LoginActivity.this, "Something wrong", Toast.LENGTH_SHORT).show();
                         }
@@ -135,8 +135,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 }
             });
-        }else if(checkuser.matches("Student")){
-            firebase.child("Student").addListenerForSingleValueEvent(new ValueEventListener() {
+        }else if(checkuser.matches("student")){
+            firebase.child("Student").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot != null) {

@@ -16,7 +16,7 @@ public class TabAdapter extends FragmentStatePagerAdapter {
 
     public TabAdapter(FragmentManager fm, ArrayList<Fragment> fragmentArrayListl) {
         super(fm);
-        this.arrayList = arrayList;
+        this.arrayList = fragmentArrayListl;
     }
 
     @Override
