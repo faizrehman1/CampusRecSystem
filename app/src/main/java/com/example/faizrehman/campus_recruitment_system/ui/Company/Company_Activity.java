@@ -1,18 +1,19 @@
-package com.example.faizrehman.campus_recruitment_system.ui;
+package com.example.faizrehman.campus_recruitment_system.ui.Company;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.faizrehman.campus_recruitment_system.Adapter.TabAdapter;
 import com.example.faizrehman.campus_recruitment_system.R;
+import com.example.faizrehman.campus_recruitment_system.ui.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -22,19 +23,19 @@ public class Company_Activity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ArrayList<Fragment> fragmentArrayListl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_);
 
-
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         viewPager = (ViewPager)findViewById(R.id.view_pager);
         fragmentArrayListl = new ArrayList<>();
         tabLayout.addTab(tabLayout.newTab().setText("Post Jobs"));
-        tabLayout.addTab(tabLayout.newTab().setText("Recieved Application"));
+        tabLayout.addTab(tabLayout.newTab().setText("Students Details"));
         PostJob_fragment company_fragment = new PostJob_fragment();
-        Recieved_App_Fragment status_fragment = new Recieved_App_Fragment();
+        Student_detail_Fragment status_fragment = new Student_detail_Fragment();
         fragmentArrayListl.add(company_fragment);
         fragmentArrayListl.add(status_fragment);
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager(), fragmentArrayListl);

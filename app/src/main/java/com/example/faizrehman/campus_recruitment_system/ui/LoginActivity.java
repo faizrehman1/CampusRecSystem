@@ -2,7 +2,9 @@ package com.example.faizrehman.campus_recruitment_system.ui;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,6 +14,9 @@ import android.widget.Toast;
 
 import com.example.faizrehman.campus_recruitment_system.AppLogs;
 import com.example.faizrehman.campus_recruitment_system.R;
+import com.example.faizrehman.campus_recruitment_system.ui.Admin.AdminActivity;
+import com.example.faizrehman.campus_recruitment_system.ui.Company.Company_Activity;
+import com.example.faizrehman.campus_recruitment_system.ui.Student.Student_Activity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -34,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference firebase;
     private String checkuser;
 
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +49,9 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firebase = FirebaseDatabase.getInstance().getReference();
         checkuser = getIntent().getStringExtra("TAG");
-
-    email = (EditText)findViewById(R.id.editText_Loginemail);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+        editor = sharedPreferences.edit();
+         email = (EditText)findViewById(R.id.editText_Loginemail);
         pass = (EditText)findViewById(R.id.editText_loginpass);
         loginbtn = (Button)findViewById(R.id.login_btn);
 
@@ -62,6 +70,10 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 if (email.getText().toString().matches("faiz") && pass.getText().toString().matches("faiz")) {
+                    Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                    editor.clear();
+                    startActivity(intent);
+
                     Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                 } else {
                     try {

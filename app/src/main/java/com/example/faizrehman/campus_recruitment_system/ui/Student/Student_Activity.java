@@ -1,4 +1,4 @@
-package com.example.faizrehman.campus_recruitment_system.ui;
+package com.example.faizrehman.campus_recruitment_system.ui.Student;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,8 +13,7 @@ import android.view.MenuItem;
 
 import com.example.faizrehman.campus_recruitment_system.Adapter.TabAdapter;
 import com.example.faizrehman.campus_recruitment_system.R;
-import com.example.faizrehman.campus_recruitment_system.ui.Company_fragment;
-import com.example.faizrehman.campus_recruitment_system.ui.Status_fragment;
+import com.example.faizrehman.campus_recruitment_system.ui.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -29,11 +28,14 @@ public class Student_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_);
 
+
+
+
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         viewPager = (ViewPager)findViewById(R.id.view_pager);
         fragmentArrayListl = new ArrayList<>();
         tabLayout.addTab(tabLayout.newTab().setText("Companies"));
-        tabLayout.addTab(tabLayout.newTab().setText("My Jobs"));
+        tabLayout.addTab(tabLayout.newTab().setText("Jobs"));
         tabLayout.addTab(tabLayout.newTab().setText("My Profile"));
         Company_fragment company_fragment = new Company_fragment();
         Status_fragment status_fragment = new Status_fragment();

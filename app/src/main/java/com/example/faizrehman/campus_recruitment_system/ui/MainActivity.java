@@ -1,7 +1,9 @@
 package com.example.faizrehman.campus_recruitment_system.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.faizrehman.campus_recruitment_system.R;
+import com.example.faizrehman.campus_recruitment_system.ui.Company.Company_Activity;
+import com.example.faizrehman.campus_recruitment_system.ui.Student.Student_Activity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
     private DatabaseReference firebase;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
 
 
@@ -42,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
         firebase = FirebaseDatabase.getInstance().getReference();
 
         mAuth = FirebaseAuth.getInstance();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        editor = sharedPreferences.edit();
+
 
         fragmentManager = getSupportFragmentManager();
 
@@ -57,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this,LoginActivity.class);
                     intent.putExtra("TAG","admin");
+                    editor.putString("TAG","admin");
+                    editor.commit();
                     startActivity(intent);
                 }
             });
@@ -66,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this,LoginActivity.class);
                     intent.putExtra("TAG","student");
+                    editor.putString("TAG","student");
+                    editor.commit();
                     startActivity(intent);
                 }
             });
@@ -75,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this,LoginActivity.class);
                     intent.putExtra("TAG","company");
+                    editor.putString("TAG","company");
+                    editor.commit();
                     startActivity(intent);
                 }
             });
@@ -84,9 +99,11 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+                    String channel = sharedPreferences.getString("TAG", "");
+
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    checkUser(user.getUid().toString());
+                    checkUser(user.getUid().toString(),channel);
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -97,44 +114,52 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void checkUser(final String uid){
+    public void checkUser(final String uid,String usercheck){
         if(uid!=null) {
-            firebase.child("Company").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot != null) {
-                        if (dataSnapshot.hasChild(uid)) {
-
-                        } else {
-                            Toast.makeText(MainActivity.this, "Something wrong", Toast.LENGTH_SHORT).show();
+            if (usercheck.matches("company")) {
+                firebase.child("Company").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot != null) {
+                            if (dataSnapshot.hasChild(uid)) {
+                                Toast.makeText(MainActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this, Company_Activity.class);
+                                editor.clear();
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Toast.makeText(MainActivity.this, "Something wrong", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
-            firebase.child("Student").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot != null) {
-                        if (dataSnapshot.hasChild(uid)) {
-                            Intent intent = new Intent(MainActivity.this, Student_Activity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(MainActivity.this, "Something wrong", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else if(usercheck.matches("student")) {
+                firebase.child("Student").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot != null) {
+                            if (dataSnapshot.hasChild(uid)) {
+                                Intent intent = new Intent(MainActivity.this, Student_Activity.class);
+                                editor.clear();
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Toast.makeText(MainActivity.this, "Something wrong", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
+                    }
+                });
+            }
         }
     }
 
