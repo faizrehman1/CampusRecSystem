@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.faizrehman.campus_recruitment_system.R;
+import com.example.faizrehman.campus_recruitment_system.ui.Admin.AdminActivity;
 import com.example.faizrehman.campus_recruitment_system.ui.Company.Company_Activity;
 import com.example.faizrehman.campus_recruitment_system.ui.Student.Student_Activity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         editor = sharedPreferences.edit();
-
+        editor.clear();
 
         fragmentManager = getSupportFragmentManager();
 
@@ -100,10 +101,19 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     String channel = sharedPreferences.getString("TAG", "");
-
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    checkUser(user.getUid().toString(),channel);
+                    if(user.getEmail().toString().matches("admin@gmail.com")){
+                        Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+                        editor.clear();
+                        startActivity(intent);
+                        finish();
+                        Toast.makeText(MainActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+                    }else{
+                      //  AppLogs.logd("signInWithEmail:onComplete:" + task.isSuccessful());
+                        checkUser(user.getUid(),channel);
+
+                    }
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");

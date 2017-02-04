@@ -16,15 +16,15 @@ public class Profile_Model {
     private String password;
     private String cunpass;
     private String gender;
-
     private String sscyear;
     private String hscyear;
     private String dpt;
+    private String uid;
 
     public Profile_Model() {
     }
 
-    public Profile_Model(String fname, String lname, String email, String contactno, String address, String ssc, String fsc, String university,String gender, String sscyear, String hscyear, String dpt) {
+    public Profile_Model(String fname, String lname, String email, String contactno, String address, String ssc, String fsc, String university,String gender, String sscyear, String hscyear, String dpt, String uid) {
         this.fname = fname;
         this.lname = lname;
         this.email = email;
@@ -37,6 +37,15 @@ public class Profile_Model {
         this.sscyear = sscyear;
         this.hscyear = hscyear;
         this.dpt = dpt;
+        this.uid = uid;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getGender() {

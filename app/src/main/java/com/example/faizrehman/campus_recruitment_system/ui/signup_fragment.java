@@ -1,14 +1,14 @@
 package com.example.faizrehman.campus_recruitment_system.ui;
 
 import android.app.ProgressDialog;
-import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,8 +16,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.faizrehman.campus_recruitment_system.AppLogs;
-import com.example.faizrehman.campus_recruitment_system.R;
 import com.example.faizrehman.campus_recruitment_system.Model.UserModel;
+import com.example.faizrehman.campus_recruitment_system.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -42,7 +42,8 @@ public class signup_fragment extends android.support.v4.app.Fragment {
     private static final String[] Gender = new String[]{
             "Company", "Student"
     };
-
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
 
 
@@ -53,6 +54,9 @@ public class signup_fragment extends android.support.v4.app.Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         firebase = FirebaseDatabase.getInstance().getReference();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        editor = sharedPreferences.edit();
+        editor.clear();
         email = (EditText) view.findViewById(R.id.editText_email);
         userID = (EditText) view.findViewById(R.id.editText_userID);
         password = (EditText) view.findViewById(R.id.editText_password);
@@ -152,10 +156,5 @@ public class signup_fragment extends android.support.v4.app.Fragment {
 
                     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-    }
+
 }

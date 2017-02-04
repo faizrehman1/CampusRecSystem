@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String emails = email.getText().toString();
+                final String emails = email.getText().toString();
                 String passo = pass.getText().toString();
 
 
@@ -68,14 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (passo.length() == 0 && passo.length() <= 6) {
                     pass.setError("This is Required Field");
                 }
-
-                if (email.getText().toString().matches("faiz") && pass.getText().toString().matches("faiz")) {
-                    Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
-                    editor.clear();
-                    startActivity(intent);
-
-                    Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-                } else {
+                      else {
                     try {
                         final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Sign In", "Connecting...", true, false);
 
@@ -83,9 +76,21 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull final Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    AppLogs.logd("signInWithEmail:onComplete:" + task.isSuccessful());
-                                    checkUser(task.getResult().getUser().getUid());
-                                    progressDialog.dismiss();
+
+                                    if("admin@gmail.com".matches(task.getResult().getUser().getEmail())){
+                                        Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                                        editor.clear();
+                                        editor.putString("TAG","admin");
+                                        editor.commit();
+                                        startActivity(intent);
+                                        finish();
+                                        Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+                                        progressDialog.dismiss();
+                                    }else{
+                                        AppLogs.logd("signInWithEmail:onComplete:" + task.isSuccessful());
+                                        checkUser(task.getResult().getUser().getUid());
+                                        progressDialog.dismiss();
+                                    }
 
                                 } else if (!task.isSuccessful()) {
                                     AppLogs.logw("signInWithEmail" + task.getException());
@@ -138,6 +143,9 @@ public class LoginActivity extends AppCompatActivity {
                         if (dataSnapshot.hasChild(uid)) {
                             Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, Company_Activity.class);
+                            editor.clear();
+                            editor.putString("TAG","company");
+                            editor.commit();
                             startActivity(intent);
                             finish();
                         } else {
@@ -159,6 +167,9 @@ public class LoginActivity extends AppCompatActivity {
                         if (dataSnapshot.hasChild(uid)) {
                             Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, Student_Activity.class);
+                            editor.clear();
+                            editor.putString("TAG","student");
+                            editor.commit();
                             startActivity(intent);
                             finish();
                         } else {

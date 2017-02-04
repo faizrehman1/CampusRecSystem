@@ -10,7 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.faizrehman.campus_recruitment_system.Adapter.Student_Detail_Adapter;
@@ -40,6 +44,12 @@ public class Student_detail_Fragment extends android.support.v4.app.Fragment {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private String checkUser;
+    EditText fname, lname, email, cntactNo, address, ssc, fsc, university, password, cunPass;
+    Button std_signUp;
+    RadioButton mchkBX, fchkBX;
+    Spinner spinnerSSCyear,spinnerHSCyear,spinnerDpt;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,7 +71,7 @@ public class Student_detail_Fragment extends android.support.v4.app.Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
                   Profile_Model profile_modelObject = dataSnapshot1.getValue(Profile_Model.class);
-                    profile_models.add(new Profile_Model(profile_modelObject.getFname(),profile_modelObject.getLname(),profile_modelObject.getEmail(),profile_modelObject.getContactno(),profile_modelObject.getAddress(),profile_modelObject.getSsc(),profile_modelObject.getFsc(),profile_modelObject.getUniversity(),profile_modelObject.getGender(),profile_modelObject.getSscyear(),profile_modelObject.getHscyear(),profile_modelObject.getDpt()));
+                    profile_models.add(new Profile_Model(profile_modelObject.getFname(),profile_modelObject.getLname(),profile_modelObject.getEmail(),profile_modelObject.getContactno(),profile_modelObject.getAddress(),profile_modelObject.getSsc(),profile_modelObject.getFsc(),profile_modelObject.getUniversity(),profile_modelObject.getGender(),profile_modelObject.getSscyear(),profile_modelObject.getHscyear(),profile_modelObject.getDpt(),profile_modelObject.getUid()));
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -109,6 +119,65 @@ public class Student_detail_Fragment extends android.support.v4.app.Fragment {
                     builder.setNegativeButton("Back", null);
                     builder.show();
 
+                }else if(checkUser.matches("company")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("View Student Data");
+                    builder.setMessage("Student Profile");
+
+                    LayoutInflater layoutInflater = (LayoutInflater.from(getActivity()));
+                    View viewProfile =  layoutInflater.inflate(R.layout.profile_view,null);
+
+                    fname = (EditText) viewProfile.findViewById(R.id.std_first_name);
+                    lname = (EditText) viewProfile.findViewById(R.id.std_last_name);
+                    email = (EditText) viewProfile.findViewById(R.id.std_get_email);
+                    cntactNo = (EditText) viewProfile.findViewById(R.id.std_get_no);
+                    address = (EditText) viewProfile.findViewById(R.id.std_get_address);
+                    ssc = (EditText)viewProfile. findViewById(R.id.std_get_SSC);
+                    fsc = (EditText)viewProfile. findViewById(R.id.std_get_FSC);
+                    university = (EditText)viewProfile. findViewById(R.id.std_get_uni);
+                    std_signUp = (Button)viewProfile. findViewById(R.id.student_signUp_button);
+                    mchkBX = (RadioButton)viewProfile. findViewById(R.id.maleChkBox);
+                    fchkBX = (RadioButton)viewProfile. findViewById(R.id.femaleChkBox);
+                    spinnerHSCyear = (Spinner)viewProfile.findViewById(R.id.fscSpinner);
+                    spinnerSSCyear = (Spinner)viewProfile.findViewById(R.id.sscSpinner);
+                    spinnerDpt = (Spinner)viewProfile.findViewById(R.id.dptSpinner);
+
+                    std_signUp.setVisibility(View.GONE);
+
+                    myRef.child("Std-Profiles").child(profile_models.get(position).getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            Profile_Model profile_model = dataSnapshot.getValue(Profile_Model.class);
+                            fname.setText(profile_model.getFname());
+                            lname.setText(profile_model.getLname());
+                            email.setText(profile_model.getEmail());
+                            cntactNo.setText(profile_model.getContactno());
+                            address.setText(profile_model.getAddress());
+                            ssc.setText(profile_model.getSsc());
+                            fsc.setText(profile_model.getFsc());
+                            university.setText(profile_model.getUniversity());
+                            if(profile_model.getGender().matches("Male")){
+                                mchkBX.setChecked(true);
+                            }else{
+                                fchkBX.setChecked(true);
+                            }
+                            spinnerSSCyear.setPrompt(profile_model.getSscyear());
+                            spinnerHSCyear.setPrompt(profile_model.getHscyear());
+                            spinnerDpt.setPrompt(profile_model.getDpt());
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+                    builder.setPositiveButton("Back",null);
+                    builder.setView(viewProfile);
+                    builder.show();
                 }
                 }
 

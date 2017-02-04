@@ -158,7 +158,7 @@ public class Profile_fragment extends android.support.v4.app.Fragment {
                         fsc.setError("Out of Range");
                     }
                    else {
-                        myRef.child("Std-Profiles").child(mAuth.getCurrentUser().getUid()).setValue(new Profile_Model(fnamee, lnamee, emails, cntactNoo, addresss, sscc, fssc, uni,checkMale, spinSsc, spinHSC, spindpt));
+                        myRef.child("Std-Profiles").child(mAuth.getCurrentUser().getUid()).setValue(new Profile_Model(fnamee, lnamee, emails, cntactNoo, addresss, sscc, fssc, uni,checkMale, spinSsc, spinHSC, spindpt,mAuth.getCurrentUser().getUid().toString()));
                     Toast.makeText(getActivity(),"Successfuly Updated",Toast.LENGTH_SHORT).show();
 
                    }
