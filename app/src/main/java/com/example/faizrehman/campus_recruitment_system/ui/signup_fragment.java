@@ -153,8 +153,7 @@ public class signup_fragment extends android.support.v4.app.Fragment {
     private void main(String pass) {
 
                         Toast.makeText(getActivity(), pass + "\nYou Password is no longer Stronger \nPlease signup Again with \natleast 7 Character of Pasword.\nThanks ", Toast.LENGTH_SHORT).show();
-
-                    }
+    }
 
 
 }

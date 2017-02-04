@@ -5,19 +5,15 @@
     android:id="@+id/activity_admin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.faizrehman.campus_recruitment_system.ui.Admin.AdminActivity">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#367ed6"
+        android:background="#77b3e7"
         android:elevation="6dp"
-        app:tabIndicatorColor="#8fb3f1"
+        app:tabIndicatorColor="#a6c0ed"
         app:tabIndicatorHeight="5dp"
         app:tabSelectedTextColor="#fffdfe"
         app:tabTextColor="#000000"

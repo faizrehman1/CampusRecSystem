@@ -18,16 +18,16 @@ import java.util.ArrayList;
 
 public class Job_postAdapter extends BaseAdapter {
 
-    ArrayList<Job_Model> job_modelArrayList;
-    Context context;
-    LayoutInflater layoutInflater;
-    TextView jobtitle;
-    TextView comp_detail,comp_name,comp_email,comp_cat;
+    private ArrayList<Job_Model> job_modelArrayList;
+    private Context context;
+    private LayoutInflater layoutInflater;
+    private TextView jobtitle;
+    private TextView comp_detail, comp_name, comp_email, comp_cat;
 
     public Job_postAdapter(ArrayList<Job_Model> job_modelArrayList, Context context) {
         this.job_modelArrayList = job_modelArrayList;
         this.context = context;
-        this.layoutInflater  = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -48,19 +48,18 @@ public class Job_postAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-         View view = layoutInflater.inflate(R.layout.job_views,null);
-           comp_cat= (TextView)view.findViewById(R.id.comp_jobcat);
-           comp_email = (TextView)view.findViewById(R.id.comp_jobemail);
-            comp_name = (TextView)view.findViewById(R.id.comp_namee);
-           comp_detail = (TextView)view.findViewById(R.id.comp_detail);
-           jobtitle = (TextView)view.findViewById(R.id.job_name);
+        View view = layoutInflater.inflate(R.layout.job_views, null);
+        comp_cat = (TextView) view.findViewById(R.id.comp_jobcat);
+        comp_email = (TextView) view.findViewById(R.id.comp_jobemail);
+        comp_name = (TextView) view.findViewById(R.id.comp_namee);
+        comp_detail = (TextView) view.findViewById(R.id.comp_detail);
+        jobtitle = (TextView) view.findViewById(R.id.job_name);
 
-        comp_name.setText(job_modelArrayList.get(position).getComp_name());
-        comp_email.setText(job_modelArrayList.get(position).getComp_email());
-        comp_cat.setText(job_modelArrayList.get(position).getCategory());
+        comp_name.setText("Compny Name: "+job_modelArrayList.get(position).getComp_name());
+        comp_email.setText("Email: "+job_modelArrayList.get(position).getComp_email());
+        comp_cat.setText("Categories: "+job_modelArrayList.get(position).getCategory());
         jobtitle.setText(job_modelArrayList.get(position).getJob_title());
-        comp_detail.setText(job_modelArrayList.get(position).getComp_detail());
-
+        comp_detail.setText("Location: "+job_modelArrayList.get(position).getComp_detail());
 
 
         return view;

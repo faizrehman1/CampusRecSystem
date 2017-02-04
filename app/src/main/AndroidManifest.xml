@@ -22,9 +22,15 @@
         <activity
             android:name=".ui.LoginActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".ui.Student.Student_Activity" />
-        <activity android:name=".ui.Company.Company_Activity" />
-        <activity android:name=".ui.Admin.AdminActivity"></activity>
+        <activity android:name=".ui.Student.Student_Activity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            />
+        <activity android:name=".ui.Company.Company_Activity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            />
+        <activity android:name=".ui.Admin.AdminActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            ></activity>
     </application>
 
 </manifest>

@@ -86,6 +86,8 @@ public class PostJob_fragment extends android.support.v4.app.Fragment {
                 final Spinner spinner = (Spinner) view.findViewById(R.id.Category);
                 comp_email.setText(mAuth.getCurrentUser().getEmail());
                 comp_email.setEnabled(false);
+                comp_name.setText(mAuth.getCurrentUser().getDisplayName());
+                comp_name.setEnabled(false);
                 builder.setTitle("Add Jobs");
                 builder.setMessage("Like to Add Jobs.. ??");
                 builder.setPositiveButton("Back", null);

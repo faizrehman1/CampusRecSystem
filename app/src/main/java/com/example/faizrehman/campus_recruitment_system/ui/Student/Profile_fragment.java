@@ -1,10 +1,12 @@
 package com.example.faizrehman.campus_recruitment_system.ui.Student;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -34,7 +36,7 @@ public class Profile_fragment extends android.support.v4.app.Fragment {
     FirebaseAuth.AuthStateListener mAuthListener;
 
     EditText fname, lname, email, cntactNo, address, ssc, fsc, university, password, cunPass;
-    Button std_signUp;
+    Button std_update;
     RadioButton mchkBX, fchkBX;
     Spinner spinnerSSCyear,spinnerHSCyear,spinnerDpt;
     String checkMale ;
@@ -61,7 +63,7 @@ public class Profile_fragment extends android.support.v4.app.Fragment {
         ssc = (EditText)view. findViewById(R.id.std_get_SSC);
         fsc = (EditText)view. findViewById(R.id.std_get_FSC);
         university = (EditText)view. findViewById(R.id.std_get_uni);
-        std_signUp = (Button)view. findViewById(R.id.student_signUp_button);
+        std_update = (Button)view. findViewById(R.id.student_signUp_button);
         mchkBX = (RadioButton)view. findViewById(R.id.maleChkBox);
         fchkBX = (RadioButton)view. findViewById(R.id.femaleChkBox);
         spinnerHSCyear = (Spinner)view.findViewById(R.id.fscSpinner);
@@ -69,10 +71,26 @@ public class Profile_fragment extends android.support.v4.app.Fragment {
         spinnerDpt = (Spinner)view.findViewById(R.id.dptSpinner);
 
 
-        myRef.child("Std-Profiles").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child("Std-Profiles").child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot!=null) {
+                if(dataSnapshot.getValue()!=null) {
+                    fname.setEnabled(false);
+                    lname.setEnabled(false);
+                    email.setEnabled(false);
+                    cntactNo.setEnabled(false);
+                    address.setEnabled(false);
+                    ssc.setEnabled(false);
+                    fsc.setEnabled(false);
+                    university.setEnabled(false);
+                    std_update.setEnabled(false);
+                    mchkBX.setEnabled(false);
+                    fchkBX.setEnabled(false);
+                    spinnerHSCyear.setEnabled(false);
+                    spinnerSSCyear.setEnabled(false);
+                    spinnerDpt.setEnabled(false);
+                    std_update.setEnabled(false);
+
                     Profile_Model userModel = dataSnapshot.getValue(Profile_Model.class);
                     if(userModel!=null) {
                         email.setText(userModel.getEmail());
@@ -91,8 +109,45 @@ public class Profile_fragment extends android.support.v4.app.Fragment {
                         } else {
                             fchkBX.setChecked(true);
                         }
+
+
                     }
+                }else{
+                    fname.setEnabled(false);
+                    lname.setEnabled(false);
+                    email.setEnabled(false);
+                    cntactNo.setEnabled(true);
+                    address.setEnabled(true);
+                    ssc.setEnabled(true);
+                    fsc.setEnabled(true);
+                    university.setEnabled(true);
+                    std_update.setEnabled(true);
+                    mchkBX.setEnabled(true);
+                    fchkBX.setEnabled(true);
+                    spinnerHSCyear.setEnabled(true);
+                    spinnerSSCyear.setEnabled(true);
+                    spinnerDpt.setEnabled(true);
+                    std_update.setEnabled(true);
+
+                    fname.setText("");
+                    lname.setText("");
+                    email.setText("");
+                    cntactNo.setText("");
+                    address.setText("");
+                    ssc.setText("");
+                    fsc.setText("");
+                    university.setText("");
+                    std_update.setEnabled(true);
+                    mchkBX.setChecked(false);
+                    fchkBX.setChecked(false);
+                    spinnerHSCyear.setEnabled(true);
+                    spinnerSSCyear.setEnabled(true);
+                    spinnerDpt.setEnabled(true);
+                    std_update.setEnabled(true);
+
                 }
+
+
             }
 
             @Override
@@ -118,7 +173,7 @@ public class Profile_fragment extends android.support.v4.app.Fragment {
             }
         });
 
-            std_signUp.setOnClickListener(new View.OnClickListener() {
+            std_update.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -152,15 +207,29 @@ public class Profile_fragment extends android.support.v4.app.Fragment {
                         Toast.makeText(getActivity(), "Fill All Fields", Toast.LENGTH_SHORT).show();
                     } else if (email.getText().length() == 0 || !android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
                         email.setError("Enter Valid Email Address");
-                    }else if(Integer.parseInt(sscc) >100 ){
+                    }else if(Double.parseDouble(sscc) >100 ){
                        ssc.setError("Out of Range");
-                   }else if(Integer.parseInt(fssc) >100){
+                   }else if(Double.parseDouble(fssc) >100){
                         fsc.setError("Out of Range");
                     }
                    else {
                         myRef.child("Std-Profiles").child(mAuth.getCurrentUser().getUid()).setValue(new Profile_Model(fnamee, lnamee, emails, cntactNoo, addresss, sscc, fssc, uni,checkMale, spinSsc, spinHSC, spindpt,mAuth.getCurrentUser().getUid().toString()));
                     Toast.makeText(getActivity(),"Successfuly Updated",Toast.LENGTH_SHORT).show();
-
+                       fname.setEnabled(false);
+                       lname.setEnabled(false);
+                       email.setEnabled(false);
+                       cntactNo.setEnabled(false);
+                       address.setEnabled(false);
+                       ssc.setEnabled(false);
+                       fsc.setEnabled(false);
+                       university.setEnabled(false);
+                       std_update.setEnabled(false);
+                       mchkBX.setEnabled(false);
+                       fchkBX.setEnabled(false);
+                       spinnerHSCyear.setEnabled(false);
+                       spinnerSSCyear.setEnabled(false);
+                       spinnerDpt.setEnabled(false);
+                       std_update.setEnabled(false);
                    }
                 }
             });
@@ -169,5 +238,11 @@ public class Profile_fragment extends android.support.v4.app.Fragment {
 
 
         return view;
+    }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 }

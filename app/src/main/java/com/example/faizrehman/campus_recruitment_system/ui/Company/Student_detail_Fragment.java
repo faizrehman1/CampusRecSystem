@@ -125,57 +125,80 @@ public class Student_detail_Fragment extends android.support.v4.app.Fragment {
                     builder.setMessage("Student Profile");
 
                     LayoutInflater layoutInflater = (LayoutInflater.from(getActivity()));
-                    View viewProfile =  layoutInflater.inflate(R.layout.profile_view,null);
+                    View viewProfile =  layoutInflater.inflate(R.layout.profileview_company_std,null);
 
                     fname = (EditText) viewProfile.findViewById(R.id.std_first_name);
-                    lname = (EditText) viewProfile.findViewById(R.id.std_last_name);
+            //        lname = (EditText) viewProfile.findViewById(R.id.std_last_name);
                     email = (EditText) viewProfile.findViewById(R.id.std_get_email);
                     cntactNo = (EditText) viewProfile.findViewById(R.id.std_get_no);
                     address = (EditText) viewProfile.findViewById(R.id.std_get_address);
                     ssc = (EditText)viewProfile. findViewById(R.id.std_get_SSC);
                     fsc = (EditText)viewProfile. findViewById(R.id.std_get_FSC);
                     university = (EditText)viewProfile. findViewById(R.id.std_get_uni);
-                    std_signUp = (Button)viewProfile. findViewById(R.id.student_signUp_button);
+            //        std_signUp = (Button)viewProfile. findViewById(R.id.student_signUp_button);
                     mchkBX = (RadioButton)viewProfile. findViewById(R.id.maleChkBox);
                     fchkBX = (RadioButton)viewProfile. findViewById(R.id.femaleChkBox);
                     spinnerHSCyear = (Spinner)viewProfile.findViewById(R.id.fscSpinner);
                     spinnerSSCyear = (Spinner)viewProfile.findViewById(R.id.sscSpinner);
                     spinnerDpt = (Spinner)viewProfile.findViewById(R.id.dptSpinner);
 
-                    std_signUp.setVisibility(View.GONE);
+              //      std_signUp.setVisibility(View.GONE);
 
                     myRef.child("Std-Profiles").child(profile_models.get(position).getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue() != null) {
+                                fname.setEnabled(false);
+                                email.setEnabled(false);
+                                cntactNo.setEnabled(false);
+                                address.setEnabled(false);
+                                ssc.setEnabled(false);
+                                fsc.setEnabled(false);
+                                university.setEnabled(false);
+                                mchkBX.setEnabled(false);
+                                fchkBX.setEnabled(false);
+                                spinnerHSCyear.setEnabled(false);
+                                spinnerSSCyear.setEnabled(false);
+                                spinnerDpt.setEnabled(false);
 
-                            Profile_Model profile_model = dataSnapshot.getValue(Profile_Model.class);
-                            fname.setText(profile_model.getFname());
-                            lname.setText(profile_model.getLname());
-                            email.setText(profile_model.getEmail());
-                            cntactNo.setText(profile_model.getContactno());
-                            address.setText(profile_model.getAddress());
-                            ssc.setText(profile_model.getSsc());
-                            fsc.setText(profile_model.getFsc());
-                            university.setText(profile_model.getUniversity());
-                            if(profile_model.getGender().matches("Male")){
-                                mchkBX.setChecked(true);
+                                Profile_Model profile_model = dataSnapshot.getValue(Profile_Model.class);
+                                fname.setText(profile_model.getFname());
+                                //              lname.setText(profile_model.getLname());
+                                email.setText(profile_model.getEmail());
+                                cntactNo.setText(profile_model.getContactno());
+                                address.setText(profile_model.getAddress());
+                                ssc.setText(profile_model.getSsc());
+                                fsc.setText(profile_model.getFsc());
+                                university.setText(profile_model.getUniversity());
+                                if (profile_model.getGender().matches("Male")) {
+                                    mchkBX.setChecked(true);
+                                } else {
+                                    fchkBX.setChecked(true);
+                                }
+                                spinnerSSCyear.setPrompt(profile_model.getSscyear());
+                                spinnerHSCyear.setPrompt(profile_model.getHscyear());
+                                spinnerDpt.setPrompt(profile_model.getDpt());
+
+
+
+
                             }else{
-                                fchkBX.setChecked(true);
+
                             }
-                            spinnerSSCyear.setPrompt(profile_model.getSscyear());
-                            spinnerHSCyear.setPrompt(profile_model.getHscyear());
-                            spinnerDpt.setPrompt(profile_model.getDpt());
-
                         }
-
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
 
                         }
                     });
-
-
                     builder.setPositiveButton("Back",null);
+                    builder.setNeutralButton("Shotlist", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                      Profile_Model profile_model_ref = profile_models.get(position);
+                       myRef.child("shortlist-std").child(mAuth.getCurrentUser().getUid()).push().setValue(new Profile_Model(profile_model_ref.getFname(),profile_model_ref.getLname(),profile_model_ref.getEmail(),profile_model_ref.getContactno(),profile_model_ref.getAddress(),profile_model_ref.getSsc(),profile_model_ref.getFsc(),profile_model_ref.getUniversity(),profile_model_ref.getGender(),profile_model_ref.getSscyear(),profile_model_ref.getHscyear(),profile_model_ref.getDpt(),profile_model_ref.getUid()));
+                        }
+                    });
                     builder.setView(viewProfile);
                     builder.show();
                 }

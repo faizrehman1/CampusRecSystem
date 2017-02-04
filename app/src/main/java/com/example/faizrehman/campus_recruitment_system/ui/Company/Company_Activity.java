@@ -34,10 +34,13 @@ public class Company_Activity extends AppCompatActivity {
         fragmentArrayListl = new ArrayList<>();
         tabLayout.addTab(tabLayout.newTab().setText("Post Jobs"));
         tabLayout.addTab(tabLayout.newTab().setText("Students Details"));
+        tabLayout.addTab(tabLayout.newTab().setText("ShortList Students"));
         PostJob_fragment company_fragment = new PostJob_fragment();
         Student_detail_Fragment status_fragment = new Student_detail_Fragment();
+        Shortlist_Student_Fragment shortlist_student_fragment = new Shortlist_Student_Fragment();
         fragmentArrayListl.add(company_fragment);
         fragmentArrayListl.add(status_fragment);
+        fragmentArrayListl.add(shortlist_student_fragment);
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager(), fragmentArrayListl);
         //is line se tablayout k neche jo shade araaha hai woh change hoga pageviewer k mutabik
         viewPager.setAdapter(adapter);

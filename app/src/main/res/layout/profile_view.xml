@@ -5,15 +5,14 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:fillViewport="true"
-        android:background="#ede9ff"
+        android:background="#79b5ed"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:padding="16dp"
         >
 
         <TableLayout
             android:layout_width="match_parent"
+            android:background="#fff"
             android:layout_height="wrap_content"
             android:stretchColumns="1">
             <android.support.design.widget.TextInputLayout
@@ -87,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Contact No"
-                android:inputType="phone"
+                android:inputType="number"
                 android:textSize="20sp" />
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
@@ -113,7 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="SSC %"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:textSize="20sp"
                     android:layout_toLeftOf="@+id/sscSpinner"
                     android:layout_toStartOf="@+id/sscSpinner" />
@@ -141,7 +140,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="FSC %"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:textSize="20sp"
                     android:layout_toLeftOf="@+id/fscSpinner"
                     android:layout_toStartOf="@+id/fscSpinner" />
@@ -175,7 +174,9 @@
                 android:prompt="@string/dpt"
                 />
 
+
             <Button
+                android:layout_marginTop="12dp"
                 android:id="@+id/student_signUp_button"
                 android:layout_width="130dp"
                 android:textColor="#ffffff"
@@ -183,6 +184,8 @@
                 android:background="#2460a9"
                 android:layout_height="wrap_content"
                 android:text="Update Profile" />
+
+
 
         </TableLayout>
 
